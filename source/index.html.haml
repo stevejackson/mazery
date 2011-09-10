@@ -1,0 +1,28 @@
+!!!
+
+%html
+  %head
+    /[if lt IE 9]
+      %script(src="//html5shim.googlecode.com/svn/trunk/html5.js")
+    %link{ :type => 'text/css', :href => 'stylesheets/layout.css', :rel=>'stylesheet' } 
+    %script(src='http://use.typekit.com/ayf8rml.js')
+    :javascript
+      try{Typekit.load();}catch(e){}
+      
+    %title mazing
+
+  %body
+    %header
+      .primary_layout
+        %span.bigger
+          mazery:
+        %span.smaller
+          a js/coffeescript/html5 experiment
+        
+    %hr.space
+
+    %content
+      .primary_layout
+        %p
+          test
+          test2

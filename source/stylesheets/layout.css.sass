@@ -1,0 +1,32 @@
+@import blueprint/reset
+@import blueprint
+@import compass
+
+body
+  +blueprint-typography(true)
+  +blueprint
+  font-family: proxima-nova, "Helvetica Neue", Helvetica, Arial, sans-serif
+
+form
+  +blueprint-form
+
+.primary_layout
+  +container
+  header
+    +column(24)
+  content
+    .controls
+      +column(24)
+    .board
+      +column(24)
+
+header
+  span.bigger
+    +text-shadow(#575757 2px 2px 3px)
+    font-size: 4em
+  span.smaller
+    font-size: 2.5em
+
+hr.space
+  +colspacer
+
