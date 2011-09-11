@@ -20,15 +20,17 @@
     %header
       .primary_layout
         %span.bigger
-          mazery
+          %a{ :href => '/', :alt => "mazery" } mazery
         %span.smaller
-          a js/coffeescript/html5 experiment by Steve Jackson
+          %a{ :href => 'http://sjackson.net' } a js/coffeescript/html5 canvas thing by Steve Jackson
 
     %hr.space
 
     %content
       .primary_layout
-        %a.button Generate
+        %a.button#generate Generate
+        %a.right#twitter{ :href => 'http://twitter.com/_sjackson', :alt => "Follow me on twitter" }
+          Follow this guy on twitter.
         %hr.space
         %canvas#mazecanvas{ :width => 950, :height => 950 }
           Maze Canvas.

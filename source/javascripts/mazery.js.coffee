@@ -1,9 +1,17 @@
+# steve jackson, 2011
+# use at your own peril.
+
 $(document).ready ->
   mazery()
+
+  # 'Generate' button handler
+  $('#generate').click ->
+    mazery()
 
 mazery = ->
   # grab the context
   canvas = $('#mazecanvas').get(0)
+  canvas.width = canvas.width
   canvasWidth = canvas.width
   canvasHeight = canvas.height
   cellSize = 30
@@ -29,12 +37,14 @@ mazery = ->
       context.clearRect(0, 0, canvas.width, canvas.height)
       # rendering / logic
       @maze.update()
-      #@maze.drawGrid()
       @maze.drawAllCells()
+
+      $('#generate').click ->
+        clearInterval(mazeInterval)
 
     # start our loop!
     framesPerSecond = 60
-    setInterval(logicLoop, 1000 / framesPerSecond)
+    mazeInterval = setInterval(logicLoop, 1000 / framesPerSecond)
 
 class Maze
   constructor: (@context, @width, @height, @cellSize) ->
@@ -51,33 +61,6 @@ class Maze
     @cells[@location[0]][@location[1]].visited = true
     @hunting = false
     @complete = false
-
-  drawGrid: ->
-    @context.strokeStyle = "#eaeaea"
-    for x in [-0.5..@width * @cellSize + 0.5]
-      @context.beginPath()
-      @context.moveTo(x, 0)
-      @context.lineTo(x, @height * @cellSize)
-      @context.fill()
-      @context.closePath()
-      @context.stroke()
-      x += @cellSize
-
-    for y in [0.5..@height * @cellSize + 0.5]
-      @context.beginPath()
-      @context.moveTo(0, y)
-      @context.lineTo(@width * @cellSize, y)
-      @context.fill()
-      @context.closePath()
-      @context.stroke()
-      y += @cellSize
-
-  getRandomColor: (x, y) ->
-    red = 255#Math.floor(Math.random() * 256)
-    green = Math.floor(Math.random() * 0)
-    blue = Math.floor(Math.random() * 0)
-    opacity = 1 #Math.random() * 1.5
-    "rgba(" + red + "," + green + "," + blue + "," + opacity + ")"
 
   getRandomCell: ->
     x = Math.floor(Math.random() * @width)
@@ -97,12 +80,12 @@ class Maze
     #  * EITHER "empty" cell color, or "traversed" cell color
     #  * "recently visited" cell color, fades away
     #  * "hunted" cell color, fades away
-    
+
     @cells[x][y].update()
     @context.globalAlpha = @cells[x][y].alpha
     locX = x * @cellSize
     locY = y * @cellSize
-    
+
     # draw either "empty" cell color, or "traversed" cell color
     @context.fillStyle = @getCellColor(x, y)
     @context.fillRect(locX, locY, @cellSize, @cellSize)
@@ -121,14 +104,13 @@ class Maze
       @context.globalAlpha = @cells[x][y].huntedAlpha
       @context.fillRect(locX, locY, @cellSize, @cellSize)
       @context.fill()
-    
+
     @drawCellBorders(x, y)
 
   drawCellBorders: (x, y) ->
     @context.strokeStyle = "#eaeaea"
     @context.globalAlpha = 1
 
-    # top border:
     if @cells[x][y].north
       @context.beginPath()
       @context.moveTo(x * @cellSize, y * @cellSize)
@@ -165,8 +147,7 @@ class Maze
 
   update: ->
     # maze generation logic
-    if @complete
-      return true
+    return true if @complete
 
     if @hunting
       # when we're hunting, we're sweeping down row by row to find a cell that is
@@ -186,6 +167,7 @@ class Maze
           @location[1] += 1
         else
           @complete = true
+    # normal traversal mode
     else
       neighbor = @getNeighbor(@location[0], @location[1], false)
       unless not neighbor
@@ -202,6 +184,7 @@ class Maze
     for i in [0..@width]
       @cells[i][row].hunted = true
       @cells[i][row].huntedAlpha = 1
+    # now let's actually hunt this row.
     for i in [0..@width]
       if not @cells[i][row].visited
         # if this cell is unvisited, is it next to a cell that IS visited?
@@ -243,6 +226,7 @@ class Maze
 
         checkedSides.push(sideToCheck)
 
+    # we couldn't find a valid neighbor
     false
 
   validCellLocation: (x, y) ->
@@ -250,7 +234,6 @@ class Maze
 
 class Cell
   constructor: (@x, @y) ->
-    @states = []
     @alpha = 1.0
     @visited = false
     @north = true
@@ -259,7 +242,7 @@ class Cell
     @west = true
     @visitedAlpha = 0
     @huntedAlpha = 0
-    
+
     @recentlyVisited = false
     @hunted = false
 

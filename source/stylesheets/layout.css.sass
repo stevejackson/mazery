@@ -15,13 +15,14 @@ body
   font-family: proxima-nova, "Helvetica Neue", Helvetica, Arial, sans-serif
   background: $background-color
 
-form
-  +blueprint-form
-
 p, span, h1, h2, h3
   color: $text-color
 
-header p, span, h1, h2, h3
+body a, body a:visited
+  color: $text-color
+  text-decoration: none
+
+header p, span, h1, h2, h3, body a, body a:visited
   +transition-property(all)
   +transition-duration(0.2s)
   +transition-timing-function(ease-in-out)
@@ -31,6 +32,7 @@ header p, span, h1, h2, h3
 
 .primary_layout
   +container
+  width: 900px
   header
     +column(24)
   content
@@ -72,3 +74,10 @@ hr.space
     background: darken($theme2, 10%)
   &:active
     top: 1px
+
+.right
+  float: right
+
+#twitter
+  position: relative
+  top: 20px
