@@ -2,13 +2,32 @@
 @import blueprint
 @import compass
 
+$background-color: #09090b
+$background-color: #161621
+
+$text-color: white
+$button-color: #91BD09
+$theme2: #e63c9f
+
 body
   +blueprint-typography(true)
   +blueprint
   font-family: proxima-nova, "Helvetica Neue", Helvetica, Arial, sans-serif
+  background: $background-color
 
 form
   +blueprint-form
+
+p, span, h1, h2, h3
+  color: $text-color
+
+header p, span, h1, h2, h3
+  +transition-property(all)
+  +transition-duration(0.2s)
+  +transition-timing-function(ease-in-out)
+  &:hover
+    color: $theme2
+    +text-shadow($theme2 1px 1px 2px)
 
 .primary_layout
   +container
@@ -22,11 +41,34 @@ form
 
 header
   span.bigger
-    +text-shadow(#575757 2px 2px 3px)
+    +text-shadow($text-color 1px 1px 2px)
     font-size: 4em
+    font-weight: bold
   span.smaller
-    font-size: 2.5em
+    +text-shadow($text-color 1px 1px 2px)
+    font-size: 2em
+    margin-left: 20px
 
 hr.space
   +colspacer
 
+.button, .button:visited
+  background: $theme2
+  display: inline-block
+  color: white
+  padding: 7px 12px 8px
+  text-decoration: none
+  font-weight: bold
+  font-size: 2em
+  line-height: 1em
+  +border-radius(5px)
+  +box-shadow(0 3px 3px rgba(0,0,0,1))
+  +text-shadow(0 -1px 1px rgba(0,0,0,0.25))
+  position: relative
+  cursor: pointer
+  border-bottom: 1px solid rgba(0,0,0,0.25)
+  &:hover
+    color: white
+    background: darken($theme2, 10%)
+  &:active
+    top: 1px

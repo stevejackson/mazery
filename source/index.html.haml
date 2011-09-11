@@ -4,25 +4,30 @@
   %head
     /[if lt IE 9]
       %script(src="//html5shim.googlecode.com/svn/trunk/html5.js")
-    %link{ :type => 'text/css', :href => 'stylesheets/layout.css', :rel=>'stylesheet' } 
+    %link{ :type => 'text/css', :href => 'stylesheets/layout.css', :rel=>'stylesheet' }
     %script(src='http://use.typekit.com/ayf8rml.js')
+    %script{:src => '//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js',
+      :type => 'text/javascript' }
+    %script{:type => 'text/javascript',
+      :src => 'javascripts/mazery.js'}
     :javascript
       try{Typekit.load();}catch(e){}
-      
+
     %title mazing
 
   %body
     %header
       .primary_layout
         %span.bigger
-          mazery:
+          mazery
         %span.smaller
           a js/coffeescript/html5 experiment
-        
+
     %hr.space
 
     %content
       .primary_layout
-        %p
-          test
-          test2
+        %a.button Generate
+        %hr.space
+        %canvas#mazecanvas{ :width => 950, :height => 950 }
+          Maze Canvas.

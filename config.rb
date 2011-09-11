@@ -8,10 +8,10 @@
 
 # Change Compass configuration
 compass_config do |config|
- config.output_style = :compact
- config.sass_options = { 
+  config.output_style = :compact
+  config.sass_options = { 
    :line_comments => false
- }
+  }
 end
 
 ###
