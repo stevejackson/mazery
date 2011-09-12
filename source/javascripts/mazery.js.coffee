@@ -111,36 +111,13 @@ class Maze
       @context.fillRect(locX, locY, @cellSize, @cellSize)
       @context.fill()
 
-    #@drawCellBorders(x, y)
-
-  drawCellBorders: (x, y) ->
-    @context.strokeStyle = "#eaeaea"
-    @context.globalAlpha = 1
-
-    @context.beginPath()
-    if @cells[x][y].north
-      @context.moveTo(x * @cellSize, y * @cellSize)
-      @context.lineTo(x * @cellSize + @cellSize, y * @cellSize)
-    if @cells[x][y].south
-      @context.moveTo(x * @cellSize, y * @cellSize + @cellSize)
-      @context.lineTo(x * @cellSize + @cellSize, y * @cellSize + @cellSize)
-    if @cells[x][y].east
-      @context.moveTo(x * @cellSize + @cellSize, y * @cellSize)
-      @context.lineTo(x * @cellSize + @cellSize, y * @cellSize + @cellSize)
-    if @cells[x][y].west
-      @context.moveTo(x * @cellSize, y * @cellSize)
-      @context.lineTo(x * @cellSize, y * @cellSize + @cellSize)
-    @context.closePath()
-
-    @context.stroke()
-
   drawAllCellBorders: (x, y) ->
     @context.strokeStyle = "#eaeaea"
     @context.globalAlpha = 1
 
     for x in [0..@width]
-      @context.beginPath()
       for y in [0..@height]
+        @context.beginPath()
         if @cells[x][y].north
           @context.moveTo(x * @cellSize, y * @cellSize)
           @context.lineTo(x * @cellSize + @cellSize, y * @cellSize)
@@ -153,8 +130,8 @@ class Maze
         if @cells[x][y].west
           @context.moveTo(x * @cellSize, y * @cellSize)
           @context.lineTo(x * @cellSize, y * @cellSize + @cellSize)
-      @context.closePath()
-      @context.stroke()
+        @context.closePath()
+        @context.stroke()
 
   drawAllCells: ->
     for x in [0..@width]
