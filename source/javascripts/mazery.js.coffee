@@ -111,34 +111,22 @@ class Maze
     @context.strokeStyle = "#eaeaea"
     @context.globalAlpha = 1
 
+    @context.beginPath()
     if @cells[x][y].north
-      @context.beginPath()
       @context.moveTo(x * @cellSize, y * @cellSize)
       @context.lineTo(x * @cellSize + @cellSize, y * @cellSize)
-      @context.fill()
-      @context.closePath()
-      @context.stroke()
     if @cells[x][y].south
-      @context.beginPath()
       @context.moveTo(x * @cellSize, y * @cellSize + @cellSize)
       @context.lineTo(x * @cellSize + @cellSize, y * @cellSize + @cellSize)
-      @context.fill()
-      @context.closePath()
-      @context.stroke()
     if @cells[x][y].east
-      @context.beginPath()
       @context.moveTo(x * @cellSize + @cellSize, y * @cellSize)
       @context.lineTo(x * @cellSize + @cellSize, y * @cellSize + @cellSize)
-      @context.fill()
-      @context.closePath()
-      @context.stroke()
     if @cells[x][y].west
-      @context.beginPath()
       @context.moveTo(x * @cellSize, y * @cellSize)
       @context.lineTo(x * @cellSize, y * @cellSize + @cellSize)
-      @context.fill()
-      @context.closePath()
-      @context.stroke()
+    @context.closePath()
+
+    @context.stroke()
 
   drawAllCells: ->
     for x in [0..@width]
