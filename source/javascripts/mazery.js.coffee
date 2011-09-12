@@ -71,7 +71,7 @@ class Maze
   getRandomCell: ->
     x = Math.floor(Math.random() * @width)
     y = Math.floor(Math.random() * @height)
-    return [x, y]
+    [x, y]
 
   getCellColor: (x, y) ->
     if @cells[x][y].visited
@@ -187,10 +187,11 @@ class Maze
         @cells[i]?[row-1]?.visited or
         @cells[i]?[row+1]?.visited
           return [i, row]
-    return false
+    # we couldn't find valid prey.
+    false
 
   getNeighbor: (x, y, visited) ->
-    # 0 1 2 3 4 - north east south west
+    # 0 1 2 3 - north east south west
     # store which sides we've checked.
     checkedSides = []
 
@@ -223,9 +224,6 @@ class Maze
     # we couldn't find a valid neighbor
     false
 
-  validCellLocation: (x, y) ->
-    return x >= 0 and x <= @width and y >= 0 and y <= @height
-
 class Cell
   constructor: (@x, @y) ->
     @alpha = 1.0
@@ -241,6 +239,7 @@ class Cell
     @hunted = false
 
   update: ->
+    # slowly deplete the alpha values if they're active
     if @recentlyVisited
       @visitedAlpha = if @visitedAlpha == 0 then 0 else @visitedAlpha - 0.03
       if @visitedAlpha <= 0
