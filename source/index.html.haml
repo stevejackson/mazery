@@ -29,8 +29,12 @@
     %content
       .primary_layout
         %a.button#generate Generate
+        %label{ :for => 'fps' }Max FPS
+        %input#fps{ :name => 'fps', :type => 'text', :value => '60', :size => 2, :maxlength => 2 }
+        %label{ :for => 'cellsize' }Cell Size
+        %input#cellsize{ :name => 'cellsize', :type => 'text', :value => '35', :size => 2, :maxlength => 2 }
         %a.right#twitter{ :href => 'http://twitter.com/_sjackson', :alt => "Follow me on twitter" }
           Follow this guy on twitter.
         %hr.space
-        %canvas#mazecanvas{ :width => 950, :height => 950 }
+        %canvas#mazecanvas{ :width => 900, :height => 900 }
           Maze Canvas.

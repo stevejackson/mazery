@@ -4,6 +4,10 @@
 $(document).ready ->
   mazery()
 
+  #$(document).keypress (event) -> 
+  #  if event.which == 13
+  #    mazery()
+
   # 'Generate' button handler
   $('#generate').click ->
     mazery()
@@ -14,7 +18,10 @@ mazery = ->
   canvas.width = canvas.width
   canvasWidth = canvas.width
   canvasHeight = canvas.height
-  cellSize = 30
+
+  # get the inputs from the form
+  cellSize = parseInt($('#cellsize').val())
+  framesPerSecond = parseInt($('#fps').val())
 
   # get the real canvas size that we can fit.
   for x in [0..canvasWidth]
@@ -43,7 +50,6 @@ mazery = ->
         clearInterval(mazeInterval)
 
     # start our loop!
-    framesPerSecond = 60
     mazeInterval = setInterval(logicLoop, 1000 / framesPerSecond)
 
 class Maze
@@ -105,7 +111,7 @@ class Maze
       @context.fillRect(locX, locY, @cellSize, @cellSize)
       @context.fill()
 
-    @drawCellBorders(x, y)
+    #@drawCellBorders(x, y)
 
   drawCellBorders: (x, y) ->
     @context.strokeStyle = "#eaeaea"
@@ -128,10 +134,33 @@ class Maze
 
     @context.stroke()
 
+  drawAllCellBorders: (x, y) ->
+    @context.strokeStyle = "#eaeaea"
+    @context.globalAlpha = 1
+
+    for x in [0..@width]
+      @context.beginPath()
+      for y in [0..@height]
+        if @cells[x][y].north
+          @context.moveTo(x * @cellSize, y * @cellSize)
+          @context.lineTo(x * @cellSize + @cellSize, y * @cellSize)
+        if @cells[x][y].south
+          @context.moveTo(x * @cellSize, y * @cellSize + @cellSize)
+          @context.lineTo(x * @cellSize + @cellSize, y * @cellSize + @cellSize)
+        if @cells[x][y].east
+          @context.moveTo(x * @cellSize + @cellSize, y * @cellSize)
+          @context.lineTo(x * @cellSize + @cellSize, y * @cellSize + @cellSize)
+        if @cells[x][y].west
+          @context.moveTo(x * @cellSize, y * @cellSize)
+          @context.lineTo(x * @cellSize, y * @cellSize + @cellSize)
+      @context.closePath()
+      @context.stroke()
+
   drawAllCells: ->
     for x in [0..@width]
       for y in [0..@height]
         @drawCell(x, y)
+    @drawAllCellBorders()
 
   update: ->
     # maze generation logic

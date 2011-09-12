@@ -9,11 +9,22 @@ $text-color: white
 $button-color: #91BD09
 $theme2: #e63c9f
 
+\::selection, ::-moz-selection, ::-webkit-selection
+  background: $theme2
+
 body
   +blueprint-typography(true)
   +blueprint
   font-family: proxima-nova, "Helvetica Neue", Helvetica, Arial, sans-serif
   background: $background-color
+
+body label
+  margin-left: 20px
+  color: white
+  margin-right: 5px
+
+body input[type="text"]
+  width: 20px
 
 p, span, h1, h2, h3
   color: $text-color
@@ -81,3 +92,4 @@ hr.space
 #twitter
   position: relative
   top: 20px
+  padding-right: 25px
