@@ -4,10 +4,6 @@
 $(document).ready ->
   mazery()
 
-  #$(document).keypress (event) -> 
-  #  if event.which == 13
-  #    mazery()
-
   # 'Generate' button handler
   $('#generate').click ->
     mazery()
