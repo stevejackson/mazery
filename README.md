@@ -9,6 +9,8 @@ Why? Because maze generation is fun to watch!
 If you want to fork it and fool around, it's easy. The site runs on [middleman](https://github.com/tdreyno/middleman),
 a simple static site generator.
 
+It runs on ruby 1.9.3.
+
     gem install bundler
     bundle install
   

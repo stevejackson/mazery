@@ -5,3 +5,4 @@
 /css/.sass-cache/*
 /rakefile
 /build
+*.DS_Store

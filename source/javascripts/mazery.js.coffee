@@ -6,7 +6,12 @@ $(document).ready ->
 
   # 'Generate' button handler
   $('#generate').click ->
-    mazery()
+    cellSize = parseInt($('#cellsize').val())
+    if(cellSize <= 30)
+      if(confirm("Low cell size values could slow down and crash your browser. Proceed?"))
+        mazery()
+    else
+      mazery()
 
 mazery = ->
   # grab the context
@@ -71,11 +76,11 @@ class Maze
 
   getCellColor: (x, y) ->
     if @cells[x][y].visited
-      return "#161621"
+      return "#3D586A" # filled in background color
     else
-      return "white"
+      return "white" # blank background color
 
-    "red"
+    "red" # error
 
   drawCell: (x, y) ->
     # draw order:
@@ -95,14 +100,14 @@ class Maze
 
     # draw the "recently visited" cell color, fades away
     if @cells[x][y].recentlyVisited
-      @context.fillStyle = "#e63c9f"
+      @context.fillStyle = "#EDEB8C"
       @context.globalAlpha = @cells[x][y].visitedAlpha
       @context.fillRect(locX, locY, @cellSize, @cellSize)
       @context.fill()
 
     # draw the "hunted" cell color, fades away
     if @cells[x][y].hunted
-      @context.fillStyle = "#e63c9f"
+      @context.fillStyle = "#EDEB8C"
       @context.globalAlpha = @cells[x][y].huntedAlpha
       @context.fillRect(locX, locY, @cellSize, @cellSize)
       @context.fill()

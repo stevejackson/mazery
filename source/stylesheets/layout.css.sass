@@ -2,12 +2,16 @@
 @import blueprint
 @import compass
 
-$background-color: #09090b
-$background-color: #161621
+// Theme style: http://paletton.com/#uid=73v0x0kd7tIfGBkeVvOeoorepkO
+
+$background-color: #3D586A
 
 $text-color: white
+$link-color: #FDE087
 $button-color: #91BD09
-$theme2: #e63c9f
+$theme2: #EDEB8C
+
+$offset-color: #6D6CA5
 
 \::selection, ::-moz-selection, ::-webkit-selection
   background: $theme2
@@ -15,7 +19,7 @@ $theme2: #e63c9f
 body
   +blueprint-typography(true)
   +blueprint
-  font-family: proxima-nova, "Helvetica Neue", Helvetica, Arial, sans-serif
+  font-family: "Open Sans", Helvetica, Arial, sans-serif
   background: $background-color
 
 .warning
@@ -33,17 +37,24 @@ body input[type="text"]
 p, span, h1, h2, h3
   color: $text-color
 
-body a, body a:visited
-  color: $text-color
+header a, header a:visited
+  color: white
   text-decoration: none
 
-header p, span, h1, h2, h3, body a, body a:visited
-  +transition-property(all)
-  +transition-duration(0.2s)
-  +transition-timing-function(ease-in-out)
   &:hover
-    color: $theme2
-    +text-shadow($theme2 1px 1px 2px)
+    color: $link-color
+
+content a, content a:visited
+  color: $link-color
+  text-decoration: none
+
+  &:hover
+    color: darken($link-color, 10%)
+    text-decoration: underline
+
+a.button, a.button:visited
+  &:hover
+    text-decoration: none
 
 .primary_layout
   +container
@@ -58,11 +69,10 @@ header p, span, h1, h2, h3, body a, body a:visited
 
 header
   span.bigger
-    +text-shadow($text-color 1px 1px 2px)
     font-size: 4em
     font-weight: bold
+    color: #484774
   span.smaller
-    +text-shadow($text-color 1px 1px 2px)
     font-size: 2em
     margin-left: 20px
 
@@ -70,10 +80,10 @@ hr.space
   +colspacer
 
 .button, .button:visited
-  background: $theme2
+  background: $offset-color
   display: inline-block
   color: white
-  padding: 7px 12px 8px
+  padding: 10px 15px 11px
   text-decoration: none
   font-weight: bold
   font-size: 2em
@@ -86,15 +96,13 @@ hr.space
   border-bottom: 1px solid rgba(0,0,0,0.25)
   &:hover
     color: white
-    background: darken($theme2, 10%)
+    background: darken($offset-color, 10%)
   &:active
     top: 1px
 
 .right
   float: right
 
-#twitter
-  position: relative
-  top: 13px
-  padding-right: 25px
-  font-size: 1.2em
+.left-buffer
+  padding-left: 20px
+
